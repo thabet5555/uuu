@@ -19,14 +19,20 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - run: flutter clean
+
       - run: flutter pub get
 
-      # 🔥 هذا المهم: ينشئ android داخل GitHub مؤقتاً
+      # 🔥 إنشاء Android بشكل صحيح
       - run: flutter create --platforms=android .
+
+      # 🔥 إصلاح compileSdk تلقائياً
+      - run: |
+          sed -i 's/compileSdkVersion .*/compileSdkVersion 34/' android/app/build.gradle || true
 
       - run: flutter build apk --release
 
-      # 📦 رفع الملف كتحميل
+      # 📦 رفع الـ APK
       - uses: actions/upload-artifact@v4
         with:
           name: app-release
