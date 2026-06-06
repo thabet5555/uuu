@@ -1,4 +1,4 @@
-name: Build APK
+name: Build APK (No Android in Repo)
 
 on:
   workflow_dispatch:
@@ -20,19 +20,18 @@ jobs:
           java-version: '17'
 
       - run: flutter clean
-
       - run: flutter pub get
 
-      # 🔥 إنشاء Android بشكل صحيح
+      # 🔥 هذا هو المهم: إنشاء Android تلقائياً داخل GitHub
       - run: flutter create --platforms=android .
 
-      # 🔥 إصلاح compileSdk تلقائياً
+      # 🔥 إصلاح compileSdk تلقائي
       - run: |
           sed -i 's/compileSdkVersion .*/compileSdkVersion 34/' android/app/build.gradle || true
 
       - run: flutter build apk --release
 
-      # 📦 رفع الـ APK
+      # 📦 إخراج APK
       - uses: actions/upload-artifact@v4
         with:
           name: app-release
