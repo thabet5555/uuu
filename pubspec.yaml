@@ -14,7 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.6
 
   # 🔥 النسخة المستقرة الوحيدة
-  flutter_blue_plus: ^1.32.0
+  flutter_blue_plus: 1.32.4
 
 dev_dependencies:
   flutter_test:
